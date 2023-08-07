@@ -1,22 +1,23 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:twitter/common/common.dart';
-import 'package:twitter/features/auth/view/widgets/auth_field.dart';
-import 'package:twitter/theme/pallete.dart';
+import 'package:twitter/features/auth/view/login_view.dart';
 
+import '../../../common/common.dart';
 import '../../../constants/constants.dart';
+import '../../../theme/theme.dart';
+import 'widgets/auth_field.dart';
 
-class LoginView extends StatefulWidget {
+class SignUpView extends StatefulWidget {
   static route() => MaterialPageRoute(
-        builder: (context) => const LoginView(),
+        builder: (context) => const SignUpView(),
       );
-  const LoginView({super.key});
+  const SignUpView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignUpViewState extends State<SignUpView> {
   final appbar = UIConstants.appBar();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -68,13 +69,13 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 RichText(
                   text: TextSpan(
-                    text: "Don't have an account?",
+                    text: "Already have an account?",
                     style: const TextStyle(
                       fontSize: 16,
                     ),
                     children: [
                       TextSpan(
-                        text: ' Sign up',
+                        text: ' Login',
                         style: const TextStyle(
                           color: Pallete.blueColor,
                           fontSize: 16,
