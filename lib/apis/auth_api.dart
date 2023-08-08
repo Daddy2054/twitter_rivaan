@@ -1,9 +1,16 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as model;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:twitter/core/failure.dart';
+import 'package:twitter/core/providers.dart';
 
-import '../core/type_defs.dart';
+import '../core/core.dart';
+
+final authAPIProvider = Provider((ref) {
+  return AuthAPI(
+    account: ref.watch(appwriteAccountProvider),
+  );
+});
 
 abstract class IAuthAPI {
   FutureEither<model.User> signUp({
@@ -30,7 +37,7 @@ class AuthAPI implements IAuthAPI {
       return right(account);
     } on AppwriteException catch (e, stackTrace) {
       return left(
-        Failure(e.message??'some unexpected error occured', stackTrace),
+        Failure(e.message ?? 'some unexpected error occured', stackTrace),
       );
     } catch (e, stackTrace) {
       return left(
