@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twitter/common/common.dart';
 import 'package:twitter/common/loading_page.dart';
 import 'package:twitter/features/auth/controller/auth_controller.dart';
+import 'package:twitter/features/auth/view/signup_view.dart';
 import 'package:twitter/features/auth/view/widgets/auth_field.dart';
 import 'package:twitter/theme/pallete.dart';
 
@@ -97,7 +98,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                 ..onTap = () {
                                   Navigator.push(
                                     context,
-                                    LoginView.route(),
+                                    SignUpView.route(),
                                   );
                                 },
                             ),
