@@ -6,5 +6,8 @@ class AppwriteConstants {
   static const String userCollection = '64d3c4bd6bb3a0f4bfff';
   static const String tweetsCollection = '64d52797bb2dfe43a767';
 
+  static const String imagesBucket = '64d537ba102927e25f04';
 
+  static String imageUrl(String imageId) =>
+      'https://cloud.appwrite.io/v1/storage/buckets/$imagesBucket/files/$imageId/view?project=$projectId&mode=admin';
 }
