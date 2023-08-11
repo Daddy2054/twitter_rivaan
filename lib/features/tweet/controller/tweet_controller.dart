@@ -20,9 +20,14 @@ final tweetControllerProvider = StateNotifierProvider<TweetController, bool>(
   },
 );
 
-final getTweetsProvider = FutureProvider((ref) {
+final getTweetsProvider = FutureProvider.autoDispose((ref) {
   final tweetController = ref.watch(tweetControllerProvider.notifier);
   return tweetController.getTweets();
+});
+
+final getLatestTweetProvider = StreamProvider.autoDispose((ref) {
+  final TweetAPI = ref.watch(tweetAPIProvider);
+  return TweetAPI.getLatestTweet();
 });
 
 class TweetController extends StateNotifier<bool> {
@@ -38,7 +43,7 @@ class TweetController extends StateNotifier<bool> {
         _storageAPI = storageAPI,
         super(false);
 
-    Future<List<Tweet>> getTweets() async {
+  Future<List<Tweet>> getTweets() async {
     final tweetList = await _tweetAPI.getTweets();
     return tweetList.map((tweet) => Tweet.fromMap(tweet.data)).toList();
   }
