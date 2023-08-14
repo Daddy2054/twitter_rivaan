@@ -17,18 +17,18 @@ class FollowCount extends StatelessWidget {
       children: [
         Text(
           '$count',
-          style:  TextStyle(
+          style: TextStyle(
             color: Pallete.whiteColor,
             fontSize: fontSize,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 3,
         ),
         Text(
           text,
-          style:  TextStyle(
+          style: TextStyle(
             color: Pallete.greyColor,
             fontSize: fontSize,
             fontWeight: FontWeight.bold,
