@@ -60,18 +60,29 @@ class UserProfile extends ConsumerWidget {
                             ),
                             padding: const EdgeInsets.symmetric(horizontal: 25),
                           ),
-                          onPressed: () {
+                         onPressed: () {
                             if (currentUser.uid == user.uid) {
+                              // edit profile
                               Navigator.push(context, EditProfileView.route());
+                            } else {
+                              ref
+                                  .read(userProfileControllerProvider.notifier)
+                                  .followUser(
+                                    user: user,
+                                    context: context,
+                                    currentUser: currentUser,
+                                  );
                             }
                           },
-                          child: Text(
+                        child: Text(
                             currentUser.uid == user.uid
                                 ? 'Edit Profile'
-                                : 'Follow',
+                                : currentUser.following.contains(user.uid)
+                                    ? 'Unfollow'
+                                    : 'Follow',
                             style: const TextStyle(
-                                color: Pallete.whiteColor,
-                                backgroundColor: Pallete.greyColor),
+                              color: Pallete.whiteColor,
+                            ),
                           ),
                         ),
                       ),
