@@ -6,7 +6,7 @@ import 'package:twitter/features/tweet/controller/tweet_controller.dart';
 import 'package:twitter/features/tweet/widgets/tweet_card.dart';
 import 'package:twitter/models/tweet_model.dart';
 
-import '../../../constants/appwrite_constants.dart';
+import '../../../constants/constants.dart';
 
 class TweetList extends ConsumerWidget {
   const TweetList({super.key});
@@ -24,7 +24,7 @@ class TweetList extends ConsumerWidget {
                     } else if (data.events.contains(
                       'databases.*.collections.${AppwriteConstants.tweetsCollection}.documents.*.update',
                     )) {
-                    //  print(data.events[0]);
+                      //  print(data.events[0]);
 // get id of tweet
                       final startingPoint =
                           data.events[0].lastIndexOf('documents.');

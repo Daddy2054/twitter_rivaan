@@ -108,7 +108,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: bannerFile != null
-                              ? Image.file(bannerFile!, fit: BoxFit.fitWidth)
+                              ? Image.file(bannerFile!, fit: BoxFit.fitWidth,)
                               : user.bannerPic.isEmpty
                                   ? Container(
                                       color: Pallete.blueColor,

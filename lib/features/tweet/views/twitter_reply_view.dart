@@ -6,7 +6,7 @@ import 'package:twitter/features/tweet/widgets/tweet_card.dart';
 
 import '../../../common/error_page.dart';
 import '../../../common/loading_page.dart';
-import '../../../constants/appwrite_constants.dart';
+import '../../../constants/constants.dart';
 import '../../../models/tweet_model.dart';
 
 class TwitterReplyScreen extends ConsumerWidget {

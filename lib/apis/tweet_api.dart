@@ -6,7 +6,7 @@ import 'package:twitter/core/providers.dart';
 import 'package:twitter/core/type_defs.dart';
 import 'package:twitter/models/tweet_model.dart';
 
-import '../constants/appwrite_constants.dart';
+import '../constants/constants.dart';
 import '../core/failure.dart';
 
 final tweetAPIProvider = Provider((ref) {
@@ -167,14 +167,14 @@ class TweetAPI implements ITweetAPI {
       documentId: id,
     );
   }
-  
+
   @override
-  Future<List<Document>> getUserTweets(String uid) async{
+  Future<List<Document>> getUserTweets(String uid) async {
     final documents = await _db.listDocuments(
       databaseId: AppwriteConstants.databaseId,
       collectionId: AppwriteConstants.tweetsCollection,
       queries: [
-        Query.equal('uid',uid),
+        Query.equal('uid', uid),
       ],
     );
     return documents.documents;

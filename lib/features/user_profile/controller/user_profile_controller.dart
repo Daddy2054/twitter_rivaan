@@ -24,6 +24,10 @@ final getUserTweetsProvider = FutureProvider.family((ref, String uid) async {
   return userProfileController.getUserTweets(uid);
 });
 
+final getLatestUserProfileDataProvider = StreamProvider((ref) {
+  final userAPI = ref.watch(userAPIProvider);
+  return userAPI.getLatestUserProfileData();
+});
 class UserProfileController extends StateNotifier<bool> {
   final TweetAPI _tweetAPI;
   final StorageAPI _storageAPI;
@@ -59,7 +63,7 @@ class UserProfileController extends StateNotifier<bool> {
     if (profileFile != null) {
       final profileUrl = await _storageAPI.uploadImage([profileFile]);
       userModel = userModel.copyWith(
-        bannerPic: profileUrl[0],
+        profilePic: profileUrl[0],
       );
     }
 

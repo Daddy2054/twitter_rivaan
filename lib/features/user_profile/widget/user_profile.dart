@@ -70,8 +70,8 @@ class UserProfile extends ConsumerWidget {
                                 ? 'Edit Profile'
                                 : 'Follow',
                             style: const TextStyle(
-                              color: Pallete.whiteColor,
-                            ),
+                                color: Pallete.whiteColor,
+                                backgroundColor: Pallete.greyColor),
                           ),
                         ),
                       ),
