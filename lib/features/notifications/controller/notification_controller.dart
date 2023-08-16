@@ -10,6 +10,17 @@ final notificationControllerProvider =
   );
 });
 
+final getLatestNotificationProvider = StreamProvider((ref) {
+  final notificationAPI = ref.watch(notificationAPIProvider);
+  return notificationAPI.getLatestNotification();
+});
+
+final getNotificationsProvider = FutureProvider.family((ref, String uid) async {
+  final notificationController =
+      ref.watch(notificationControllerProvider.notifier);
+  return notificationController.getNotifications(uid);
+});
+
 class NotificationController extends StateNotifier<bool> {
   final NotificationAPI _notificationAPI;
   NotificationController({
@@ -31,6 +42,11 @@ class NotificationController extends StateNotifier<bool> {
       notificationType: notificationType,
     );
     final res = await _notificationAPI.createNotification(notification);
-    res.fold((l) => print(l.message), (r) => null);
+    res.fold((l) => null, (r) => null);
+  }
+
+  Future<List<Notification>> getNotifications(String uid) async {
+    final notifications = await _notificationAPI.getNotifications(uid);
+    return notifications.map((e) => Notification.fromMap(e.data)).toList();
   }
 }

@@ -85,13 +85,15 @@ class TweetCard extends ConsumerWidget {
                                   ),
                                 Row(
                                   children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(right: 5),
-                                      child: Text(
-                                        user.name,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 19,
+                                    Flexible(
+                                      child: Container(
+                                        margin: const EdgeInsets.only(right: 5),
+                                        child: Text(
+                                          user.name,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 19,
+                                          ),
                                         ),
                                       ),
                                     ),

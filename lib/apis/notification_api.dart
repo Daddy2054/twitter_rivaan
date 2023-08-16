@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:twitter/core/providers.dart';
@@ -9,19 +10,28 @@ import 'package:twitter/models/notification_model.dart';
 import '../constants/constants.dart';
 import '../core/failure.dart';
 
-
 final notificationAPIProvider = Provider((ref) {
-  return NotificationAPI(db: ref.watch(appwriteDatabaseProvider));
+  return NotificationAPI(
+    db: ref.watch(appwriteDatabaseProvider),
+    realtime: ref.watch(appwriteRealtimeProvider),
+  );
 });
+
 abstract class INotificationAPI {
   FutureEitherVoid createNotification(Notification notification);
+  Future<List<Document>> getNotifications(String uid);
+  Stream<RealtimeMessage> getLatestNotification();
 }
 
 class NotificationAPI implements INotificationAPI {
   final Databases _db;
+  final Realtime _realtime;
   NotificationAPI({
     required Databases db,
-  }) : _db = db;
+    required Realtime realtime,
+  })  : _realtime = realtime,
+        _db = db;
+
   @override
   FutureEitherVoid createNotification(Notification notification) async {
     try {
@@ -47,5 +57,24 @@ class NotificationAPI implements INotificationAPI {
         ),
       );
     }
+  }
+
+  @override
+  Future<List<Document>> getNotifications(String uid) async {
+    final documents = await _db.listDocuments(
+      databaseId: AppwriteConstants.databaseId,
+      collectionId: AppwriteConstants.notificationsCollection,
+      queries: [
+        Query.equal('uid', uid),
+      ],
+    );
+    return documents.documents;
+  }
+
+  @override
+  Stream<RealtimeMessage> getLatestNotification() {
+    return _realtime.subscribe([
+      'databases.${AppwriteConstants.databaseId}.collections.${AppwriteConstants.notificationsCollection}.documents'
+    ]).stream;
   }
 }

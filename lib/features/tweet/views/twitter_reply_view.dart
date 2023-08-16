@@ -36,7 +36,7 @@ class TwitterReplyScreen extends ConsumerWidget {
                 data: (tweets) {
                   return ref.watch(getLatestTweetProvider).when(
                         data: (data) {
-                          print(data);
+                    //      print(data);
 
                           final latestTweet = Tweet.fromMap(data.payload);
 
@@ -119,6 +119,7 @@ class TwitterReplyScreen extends ConsumerWidget {
             text: value,
             context: context,
             repliedTo: tweet.id,
+            repliedToUserId: tweet.uid,
           );
         },
         decoration: const InputDecoration(
