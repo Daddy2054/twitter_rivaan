@@ -34,7 +34,7 @@ class AuthAPI implements IAuthAPI {
   Future<model.User?> currentUserAccount() async {
     try {
       return await _account.get();
-    } on AppwriteException  {
+    } on AppwriteException {
       return null;
     } catch (e) {
       return null;
@@ -85,7 +85,8 @@ class AuthAPI implements IAuthAPI {
       );
     }
   }
-    @override
+
+  @override
   FutureEitherVoid logout() async {
     try {
       await _account.deleteSession(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:twitter/constants/constants.dart';
+import 'package:twitter/features/home/widgets/side_drawer.dart';
 import 'package:twitter/features/tweet/views/create_tweet_view.dart';
 import 'package:twitter/theme/pallete.dart';
 
@@ -35,7 +36,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _page == 0 ? appBar : null ,
+      appBar: _page == 0 ? appBar : null,
       body: IndexedStack(
         index: _page,
         children: UIConstants.bottomTabBarPages,
@@ -48,6 +49,7 @@ class _HomeViewState extends State<HomeView> {
           size: 28,
         ),
       ),
+      drawer: const SideDrawer(),
       bottomNavigationBar: CupertinoTabBar(
         currentIndex: _page,
         onTap: onPageChange,

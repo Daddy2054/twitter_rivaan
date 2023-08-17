@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:twitter/common/error_page.dart';
 import 'package:twitter/common/loading_page.dart';
 import 'package:twitter/features/auth/controller/auth_controller.dart';
@@ -10,6 +11,8 @@ import 'package:twitter/features/user_profile/widget/follow_count.dart';
 
 import 'package:twitter/models/user_model.dart';
 import 'package:twitter/theme/theme.dart';
+
+import '../../../constants/constants.dart';
 
 class UserProfile extends ConsumerWidget {
   final UserModel user;
@@ -60,7 +63,7 @@ class UserProfile extends ConsumerWidget {
                             ),
                             padding: const EdgeInsets.symmetric(horizontal: 25),
                           ),
-                         onPressed: () {
+                          onPressed: () {
                             if (currentUser.uid == user.uid) {
                               // edit profile
                               Navigator.push(context, EditProfileView.route());
@@ -74,7 +77,7 @@ class UserProfile extends ConsumerWidget {
                                   );
                             }
                           },
-                        child: Text(
+                          child: Text(
                             currentUser.uid == user.uid
                                 ? 'Edit Profile'
                                 : currentUser.following.contains(user.uid)
@@ -94,12 +97,23 @@ class UserProfile extends ConsumerWidget {
                   sliver: SliverList(
                     delegate: SliverChildListDelegate(
                       [
-                        Text(
-                          user.name,
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              user.name,
+                              style: const TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            if (user.isTwitterBlue)
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: SvgPicture.asset(
+                                  AssetsConstants.verifiedIcon,
+                                ),
+                              ),
+                          ],
                         ),
                         Text(
                           '@${user.name}',

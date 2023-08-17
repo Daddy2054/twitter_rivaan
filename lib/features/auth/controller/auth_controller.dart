@@ -1,4 +1,4 @@
-import 'package:appwrite/models.dart' as model;
+import 'package:appwrite/models.dart' as model ;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twitter/apis/auth_api.dart';
@@ -8,6 +8,7 @@ import 'package:twitter/features/home/view/home_view.dart';
 import 'package:twitter/models/user_model.dart';
 
 import '../../../apis/user_api.dart';
+import '../view/signup_view.dart';
 
 final authControllerProvider =
     StateNotifierProvider<AuthController, bool>((ref) {
@@ -43,6 +44,8 @@ class AuthController extends StateNotifier<bool> {
         _userAPI = userAPI,
         super(false);
   // state = isLoading
+
+  //Future<model.User?> currentUser() => _authAPI.currentUserAccount();
 
   Future<model.User?> currentUser() => _authAPI.currentUserAccount();
 
@@ -110,4 +113,16 @@ class AuthController extends StateNotifier<bool> {
     final updatedUser = UserModel.fromMap(document.data);
     return updatedUser;
   }
+
+    void logout(BuildContext context) async {
+    final res = await _authAPI.logout();
+    res.fold((l) => null, (r) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        SignUpView.route(),
+        (route) => false,
+      );
+    });
+  }
+
 }
